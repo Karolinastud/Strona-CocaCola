@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coca-Cola</title>
+    <!-- Dodanie FontAwesome dla ikonek -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Umożliwia płynne przewijanie */
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background-color: transparent;
+            padding: 20px 0;
+        nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: black; /* Kolor tekstu */
+    font-weight: bold;
+    font-size: 1.5em;
+    position: relative; /* Dodanie do ustawienia pozycji */
+    padding-bottom: 5px; /* Opcjonalne - dla odstępu od tekstu */
+}
+
+nav a:hover {
+    color: grey; /* Zmiana koloru tekstu na jasny */
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px; /* Grubość paska */
+    background-color: black; /* Kolor paska */
+    transform: scaleX(0); /* Na początku pasek jest ukryty */
+    transform-origin: bottom right;
+    transition: transform 0.3s ease; /* Animacja */
+}
+
+nav a:hover::after {
+    transform: scaleX(1); /* Pasek pojawi się po najechaniu */
+    transform-origin: bottom left; /* Pasek rozwinie się od lewej strony */
+}
+
+        }
+        .hero {
+            height: 100vh;
+            background: url('coca-cola-big.jpg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .hero-content {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .hero-content h1 {
+            font-size: 4em;
+            margin: 0;
+        }
+        .hero-content p {
+            font-size: 1.5em;
+        }
+        section {
+            padding: 40px 20px;
+            transition: all 0.5s ease-in-out;
+        }
+        section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-top: 100px;
+            margin-bottom: 120px;
+            font-weight: bold;
+            color: #000;
+        }
+        .section-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .section-row img {
+            flex: 1;
+            max-width: 50%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .section-row .text {
+            flex: 1;
+            padding: 20px;
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-align: left;
+        }
+        .section-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+        }
+        .vote-section {
+            background-color: #e1e1e1; /* Jaśniejszy kolor tła */
+            color: #333;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .vote-section h2 {
+            margin-bottom: 120px;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .vote-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .vote-option {
+            background-color: #fff;
+            color: black;
+            padding: 30px;
+            border-radius: 50px;
+            text-align: center;
+            width: 30%;
+            min-width: 250px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .vote-option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+        .vote-option img {
+            width: 80%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .vote-option h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .vote-option button {
+            margin-top: 10px;
+            padding: 12px 30px;
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .vote-option button:hover {
+            background-color: #ff2d2d;
+        }
+
+        /* Nowe style dla kafelków */
+        .section-tile {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .tile {
+            background-color: #fff;
+            color: black;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 30%;
+            min-width: 250px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tile:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+        .tile img {
+            width: 80%;
+            height: auto;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .tile:hover img {
+            transform: translateY(-10px);
+        }
+        .tile h3 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .tile p {
+            font-size: 1.2em;
+        }
+
+        /* Ustawienie wysokości sekcji na 100vh */
+        #history, #products, #campaigns {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Ukrywanie nagłówków w sekcjach */
+        .hide-header h2 {
+            display: none;
+        }
+
+        /* Stylowanie paska przewijania */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #333;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Przyciski przewijania (ikona) */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .scroll-top-btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <header id="header">
+            <nav>
+                <a href="#history">Historia</a>
+                <a href="#products">Produkty</a>
+                <a href="#campaigns">Kampanie</a>
+                <a href="#vote">Głosowanie</a>
+            </nav>
+        </header>
+        <div class="hero-content">
+            <h1>Coca-Cola</h1>
+            <p>Oryginalny smak od 1886 roku</p>
+        </div>
+    </div>
+
+    <section id="history">
+        <h2>Historia Coca-Coli</h2>
+        <div class="section-row">
+            <img src="history.jpg" alt="Historia Coca-Coli">
+            <div class="text">
+                Historia Coca-Coli rozpoczęła się w 1886 roku, kiedy aptekarz John Stith Pemberton z Atlanty opracował napój o nazwie "Pemberton's French Wine Coca". Początkowo napój zawierał alkohol, ale po uchwaleniu zakazu sprzedaży alkoholu w Georgii, Pemberton zmienił recepturę, tworząc wersję bezalkoholową, którą nazwał Coca-Cola. Współwłaścicielem firmy został Asher Candler, który przejął kontrolę nad marką i rozpoczął jej ekspansję. Coca-Cola zyskała popularność dzięki agresywnej strategii marketingowej i stała się jednym z najbardziej rozpoznawalnych napojów na świecie. W 1915 roku wprowadzono charakterystyczną butelkę w kształcie konturu. Dziś Coca-Cola jest symbolem globalnego sukcesu, sprzedawana w ponad 200 krajach i ciesząca się niezrównaną popularnością.
+                <br><br><br><br><br><br><br>
+                Coca-Cola, jeden z najbardziej rozpoznawalnych napojów na świecie, ma swoją historię, która zaczyna się w 1886 roku w Atlanty, gdzie aptekarz John Stith Pemberton stworzył początkowo napój alkoholowy, nazwany "Pemberton's French Wine Coca". Z powodu wprowadzenia zakazu sprzedaży alkoholu w stanie Georgia, Pemberton zmienił skład, tworząc wersję bezalkoholową. Receptura zawierała ekstrakt z liści koki oraz orzeszki kolowe, co miało na celu nadanie napojowi wyjątkowego smaku i właściwości pobudzających. Początkowo napój był sprzedawany jako lek w aptekach.
+
+W 1888 roku Asher Candler przejął prawa do Coca-Coli, rozpoczynając agresywną strategię marketingową. To Candler rozwinął markę na szerszą skalę, wprowadzając reklamy, które przyciągały masową publiczność. W 1915 roku zaprezentowano słynną butelkę Coca-Coli o charakterystycznym kształcie, która stała się jednym z najbardziej ikonicznych elementów wizualnych marki. Z czasem Coca-Cola zyskała status globalnego fenomenu, a marka stała się symbolem amerykańskiej kultury.
+
+Dziś Coca-Cola jest dostępna w ponad 200 krajach i należy do największych firm napojowych na świecie, z niezliczoną liczbą produktów i wersji smakowych.
+            </div>
+        </div>
+    </section>
+
+    <section id="products">
+        <h2>Nasze Produkty</h2>
+        <div class="section-tile">
+            <div class="tile">
+                <h3>Coca-Cola Classic</h3>
+                <img src="cola-classic.png" alt="Coca-Cola Classic">
+                <p>To oryginalna wersja napoju Coca-Cola, znana na całym świecie od 1886 roku. Charakteryzuje się klasycznym, orzeźwiającym smakiem, który łączy słodycz z nutą karmelu i delikatną kwaskowatością. Jest to najbardziej rozpoznawalna wersja Coca-Coli, będąca symbolem amerykańskiego przemysłu napojowego.</p>
+            </div>
+            <div class="tile">
+                <h3>Coca-Cola Lime</h3>
+                <img src="cola-lime.png" alt="Coca-Cola Lime">
+                <p>Coca-Cola Cherry to wariant napoju z dodatkiem aromatu wiśni. Jest to połączenie klasycznego smaku Coca-Coli z owocową, słodką nutą wiśni, co sprawia, że napój zyskuje bardziej owocowy i orzeźwiający charakter. Jest popularna wśród osób, które szukają czegoś innego, ale wciąż chcą poczuć smak tradycyjnej Coca-Coli.
+
+</p>
+            </div>
+            <div class="tile">
+                <h3>Coca-Cola Cherry</h3>
+                <img src="cola-cherry.png" alt="Coca-Cola Cherry">
+                <p>Coca-Cola Lime to wersja Coca-Coli wzbogacona o smak limonki. Dodatek tego cytrusowego aromatu nadaje napojowi świeżości i lekkiej kwaskowatości, tworząc wyjątkową kombinację z klasycznym smakiem napoju. Jest to opcja dla osób, które lubią bardziej orzeźwiające napoje z subtelną nutą limonki.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="campaigns">
+        <h2>Kampanie</h2>
+        <div class="section-row">
+            <img src="campaigns.jpg" alt="Kampanie Coca-Coli">
+            <div class="text">
+                <strong>Kampanie marketingowe Coca-Coli</strong>  są jednymi z najbardziej rozpoznawalnych i efektywnych na świecie. Firma od zawsze stawiała na innowacyjne podejście do reklamy, tworząc emocjonalne i zapadające w pamięć spoty. Jednym z najbardziej ikonicznych przykładów była kampania "Share a Coke", która zadebiutowała w 2011 roku w Australii. W ramach tej kampanii, na butelkach Coca-Coli zamiast tradycyjnego logo pojawiły się imiona. Celem było zachęcenie konsumentów do dzielenia się napojami z przyjaciółmi i rodziną. Kampania zyskała ogromną popularność na całym świecie, a jej sukces polegał na personalizacji produktu i angażowaniu ludzi do interakcji z marką. Ta inicjatywa podkreśliła ludzką stronę Coca-Coli i jej rolę w tworzeniu wspólnych, radosnych chwil.
+<br><br>
+Innym przykładem skutecznej kampanii jest reklama "Open Happiness", która rozpoczęła się w 2009 roku. Skupiała się na pozytywnych emocjach, jakie wywołuje napój Coca-Cola. Reklama przekonywała konsumentów, że otwierając butelkę Coca-Coli, otwierają drzwi do radości i szczęścia. Hasło "Open Happiness" stało się hasłem rozpoznawalnym na całym świecie, a sama kampania miała charakter globalny, pojawiając się w telewizji, internecie i na billboardach. Coca-Cola wykorzystała także elementy popkultury, angażując celebrytów oraz organizując wydarzenia, które promowały pozytywne wartości związane z marką.
+<br><br>
+Coca-Cola jest również pionierem w wykorzystywaniu świąt i wydarzeń okolicznościowych do budowania swojego wizerunku. Kampania "Holidays are Coming", która po raz pierwszy pojawiła się w latach 90., stała się niemal coroczną tradycją. Reklama przedstawiająca świąteczne ciężarówki Coca-Coli, które przemierzają zaśnieżone krajobrazy, jest jednym z najbardziej rozpoznawalnych symboli świąt na całym świecie. Ta kampania doskonale oddaje misję Coca-Coli, by łączyć ludzi w chwilach radości, a jednocześnie podkreślać, jak ważne są tradycje i wspólne przeżywanie wyjątkowych momentów. Dzięki tak przemyślanym kampaniom, Coca-Cola nie tylko sprzedaje napój, ale tworzy emocjonalną więź z konsumentami, co zapewnia jej globalny sukces na rynku.
+            </div>
+        </div>
+    </section>
+
+    <section class="vote-section" id="vote">
+        <h2>Głosowanie na najlepszy smak</h2>
+        <div class="vote-options">
+            <div class="vote-option">
+                <img src="cola-classic.png" alt="Coca-Cola Classic">
+                <h3>Coca-Cola Classic</h3>
+                <button onclick="vote('classic')">Głosuj na Classic</button>
+                <p id="classic-vote">0 głosów</p>
+            </div>
+            <div class="vote-option">
+                <img src="cola-lime.png" alt="Coca-Cola Lime">
+                <h3>Coca-Cola Lime</h3>
+                <button onclick="vote('lime')">Głosuj na Lime</button>
+                <p id="lime-vote">0 głosów</p>
+            </div>
+            <div class="vote-option">
+                <img src="cola-cherry.png" alt="Coca-Cola Cherry">
+                <h3>Coca-Cola Cherry</h3>
+                <button onclick="vote('cherry')">Głosuj na Cherry</button>
+                <p id="cherry-vote">0 głosów</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2024 Coca-Cola. Wszystkie prawa zastrzeżone.
+    </footer>
+
+    <!-- Przycisk do przewijania na górę strony -->
+    <button class="scroll-top-btn" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // Funkcja głosowania
+        let votes = {
+            classic: 0,
+            lime: 0,
+            cherry: 0
+        };
+
+        function vote(flavor) {
+            votes[flavor]++;
+            document.getElementById(flavor + '-vote').textContent = votes[flavor] + ' głosów';
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Pokaż przycisk, gdy użytkownik przewinie w dół
+        window.onscroll = function() {
+            var button = document.querySelector('.scroll-top-btn');
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                button.style.display = "block";
+            } else {
+                button.style.display = "none";
+            }
+        };
+
+        // Dodanie funkcji przewijania do sekcji
+        const menuLinks = document.querySelectorAll('nav a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                document.getElementById(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
